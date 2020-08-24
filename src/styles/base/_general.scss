@@ -1,0 +1,70 @@
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: $media-mb;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: $trebuchet;
+  color: $c-black;
+  overflow-x: hidden;
+
+  @media (max-width: $media-tb) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.site-wrapper {
+  @include set-width($w-site-wrapper-dt, $w-layout-dt);
+  max-width: $w-site-wrapper-dt;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (max-width: $media-tb) {
+    @include set-width($w-site-wrapper-mb, $w-layout-mb);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:not([href]) {
+    cursor: unset;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+template {
+  display: none !important;
+}
+
+::-moz-placeholder {
+  opacity: 1;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}

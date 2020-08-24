@@ -1,0 +1,12 @@
+// utilities
+@import "utilities/variables";
+@import "utilities/mixins";
+
+// base
+@import "../../node_modules/normalize.css/normalize";
+@import "base/typography";
+@import "base/general";
+
+// components
+@import "components/main-page";
+@import "components/goods";
