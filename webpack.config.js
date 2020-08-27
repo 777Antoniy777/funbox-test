@@ -2,7 +2,6 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -114,7 +113,7 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    'bundle': ["@babel/polyfill", './js/index.js'],
+    'bundle': ["@babel/polyfill", './index.tsx'],
   },
   output: {
     filename: (pathData) => {
@@ -124,7 +123,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: [`.ts`, `.tsx`, `.js`, `json`],
     alias: {
       '@': path.resolve(__dirname, 'src')
     },
@@ -153,9 +152,9 @@ module.exports = {
         use: createJSLoader(),
       },
       {
-        test: /\.ts$/,
+        test: /\.(tsx|ts)?$/,
         exclude: /node_modules/,
-        use: createJSLoader('@babel/preset-typescript'),
+        loader: `ts-loader`,
       },
       {
         test: /\.jsx$/,

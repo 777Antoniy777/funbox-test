@@ -1,4 +1,5 @@
 html {
+  height: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -59,6 +60,11 @@ img {
 
 template {
   display: none !important;
+}
+
+div[id="root"] {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 ::-moz-placeholder {
