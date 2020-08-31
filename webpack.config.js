@@ -42,6 +42,7 @@ const createCSSLoader = (addLoader) => {
       },
     },
     'css-loader',
+    'postcss-loader',
   ];
 
   if (addLoader) loader.push(addLoader);
@@ -49,7 +50,7 @@ const createCSSLoader = (addLoader) => {
   return loader;
 };
 
-const createFileLoader = () => {
+const createFileLoader = (fonts) => {
   const loader = [
     {
       loader: 'file-loader',
@@ -59,30 +60,16 @@ const createFileLoader = () => {
     }
   ];
 
+  if (fonts) {
+    loader[0].options.name = `[path][name].[ext]`;
+  }
+
   return loader;
 };
 
-const createJSOptions = (addPreset) => {
-  const options = {
-    presets: [
-      '@babel/preset-env',
-    ],
-    plugins: [
-      '@babel/plugin-proposal-class-properties',
-    ],
-  };
-
-  if (addPreset) options.presets.push(addPreset);
-
-  return options;
-};
-
-const createJSLoader = (addPreset) => {
+const createJSLoader = () => {
   const loaders = [
-    {
-      loader: 'babel-loader',
-      options: createJSOptions(addPreset),
-    },
+    'babel-loader',
   ];
 
   if (isDev) loaders.push('eslint-loader');
@@ -130,7 +117,9 @@ module.exports = {
   },
   optimization: optimizeBuild(),
   devServer: {
-    port: 8080,
+    host: '192.168.0.102', //your ip desc address
+    // host: '192.168.0.104', //your ip note address
+    port: 3000,
     hot: isDev,
   },
   devtool: isDev ? 'source-map' : '',
@@ -147,19 +136,14 @@ module.exports = {
         }
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: createJSLoader(),
+        loader: createJSLoader(),
       },
       {
         test: /\.(tsx|ts)?$/,
         exclude: /node_modules/,
         loader: `ts-loader`,
-      },
-      {
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        use: createJSLoader('@babel/preset-react'),
       },
       {
         test: /\.css$/,
@@ -179,7 +163,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|woff|woff2|eot)$/,
-        use: createFileLoader(),
+        use: createFileLoader(true),
       },
     ],
   },
