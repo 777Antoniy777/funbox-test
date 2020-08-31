@@ -117,8 +117,6 @@ module.exports = {
   },
   optimization: optimizeBuild(),
   devServer: {
-    host: '192.168.0.102', //your ip desc address
-    // host: '192.168.0.104', //your ip note address
     port: 3000,
     hot: isDev,
   },
